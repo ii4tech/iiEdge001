@@ -1,0 +1,9 @@
+FROM nginx
+
+EXPOSE 5051
+
+COPY nginx/localhost.crt /etc/nginx/localhost.crt
+COPY nginx/localhost.key /etc/nginx/localhost.key
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
+CMD ["nginx", "-g", "daemon off;"]

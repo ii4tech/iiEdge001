@@ -1,0 +1,30 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.5'
+
+networks:
+  corp:
+    driver: bridge
+
+services:
+  raventest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: raventest
+    networks:
+      - corp
+    environment:
+      - version=1
+      - dbreset=true
+      - dbname=RavenTest.sqlite
+      - rdbname=iiRdb
+      - COMPOSE_CONVERT_WINDOWS_PATHS=1
+      - ASPNETCORE_ENVIRONMENT=Production
+    volumes:
+      - /app/secure:/secure:ro
+    ports:
+      - '38888:38888'
+      - '8080:8080'
+      - '443:443'
+ 
